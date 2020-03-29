@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Mar 26 23:40:11 2020
+
+@author: sai.gutala
+"""
+# -*- coding: utf-8 -*-
+"""
 Created on Wed Mar 25 00:00:18 2020
-
 @author: admin
-
 """
 
-mport PyPDF2
+import PyPDF2
 import numpy as np 
 #import pdftotext
 import nltk 
@@ -27,10 +31,7 @@ def bag_of_words(texts) :
             if a not in vocabulary:
                 vocabulary[a] = len(vocabulary)
     return vocabulary 
-    
-
-def getwordsfunc(text):
-    
+        
     """
     Clean review (delete digits, special symbols, stopwords).
         
@@ -72,30 +73,25 @@ def get_data(filename):
     :param return_labels: flag if the are labels in the file
     :return: list of lists
     """
-
-    txtconvo = open("sample_convo1.txt", "r+") #opens text conversation file and reads & writes it
+    
+    txtconvo = open("data.txt", "r+") #opens text conversation file and reads & writes it    
     store_convo = txtconvo.read() #stores conversation into thiss variable 
-
+    
+    store_convo = store_convo.lower()
+    
+    
+    
+    
 # Ensures Random symbols don't pop up for apostrophes, accents, or ... and other such commmonly used Enlgish symbols
-    store_convo = store_convo.replace("â€™","") 
-    store_convo = store_convo.replace("â€“","")
-    store_convo = store_convo.replace("â€¦","")
-    chats = store_convo.split('--------------------------------------------------------------------------------------------------------------------')
-
-    new_list = [] 
-
-    for i in chats:
+    store_convo = store_convo.replace("â€™","")
+    store_convo = store_convo.replace("â€”","")
+    store_convo = store_convo.replace("â€˜","")
+    store_convo = store_convo.replace("Â©", "")
+    store_convo = store_convo.replace("Â®","")
+    store_convo = store_convo.replace("\n"," ")
+    print(store_convo)
     
-        texts = getwordsfunc(i)
-    
-        new_list.append(texts)    
-    #save in variable - add (append) variable to list 
-    
-    for j in new_list:
-        print("element")
-        #print(j)
-    return new_list
 if __name__ == '__main__':
-    train_data = get_data('Ads.txt')
+    train_data = get_data('data.txt')
     big_vocabulary = bag_of_words(train_data)
     print(big_vocabulary)
