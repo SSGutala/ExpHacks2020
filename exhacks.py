@@ -35,6 +35,23 @@ def get_data(filename):
 
     txtconvo = open(filename, "r+") #opens text conversation file and reads & writes it
     store_convo = txtconvo.read() #stores conversation into this variable 
+    
+    store_convo = store_convo.lower()
+    
+# Ensures Random symbols don't pop up for apostrophes, accents, or ... and other such commmonly used Enlgish symbols
+    store_convo = store_convo.replace("â€™","")
+    store_convo = store_convo.replace("â€”","")
+    store_convo = store_convo.replace("â€˜","")
+    store_convo = store_convo.replace("Â©","")
+    store_convo = store_convo.replace("â©","")
+    store_convo = store_convo.replace("Â®","")
+    store_convo = store_convo.replace("â®","")
+    store_convo =store_convo.replace("ã©","")
+    
+
+    store_convo = store_convo.replace("\n","")
+    #print(store_convo)
+    
     chats = store_convo.split("--------------------")
     new_list = []
     for i in chats:
@@ -48,5 +65,17 @@ def get_data(filename):
 if __name__ == '__main__':
     train_data = get_data('data.txt')
     big_vocabulary = bag_of_words(train_data)
+    
+    
+    ones_list =[]
+    for i in train_data:
+        if i != []:
+            ones_list.append(i.pop(0))
+        
+    print(train_data)
+    
     print(big_vocabulary) 
+    
+    
+    
     #print(big_vocabulary)
